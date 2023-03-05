@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  go:
+    build:
+      context: .
+      dockerfile: ./docker/goapp/Dockerfile
+      target: prod
+    tty: true
+    ports:
+      - 3000:8080
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/go/src
+    
+
+  db:
+    image: mysql:8.0
+    tty: true
+    ports:
+      - 3306:3306
+    env_file:
+      - ./docker/mysql/.env_mysql
+    volumes:
+      - ./docker/mysql/my.conf:/etc/my.cnf
+      - mysql_volume:/var/lib/mysql
+
+volumes:
+  mysql_volume:
+    name: mysql_volume
+    external: true
