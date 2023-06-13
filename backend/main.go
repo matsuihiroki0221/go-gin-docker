@@ -1,20 +1,14 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/matsuihiroki0221/gin-docker/routes"
+)
 
-var db = make(map[string]string)
+// var db = make(map[string]string)
 
 func main() {
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "SUCCESS!!!!",
-		})
-	})
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	routes.DefineRouter(r)
 	r.Run() // listen and serve on 0.0.0.0:8080
 }

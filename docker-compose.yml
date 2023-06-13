@@ -4,15 +4,20 @@ services:
   go:
     build:
       context: .
-      dockerfile: ./docker/goapp/Dockerfile
+      dockerfile: ./.docker/goapp/Dockerfile
       target: prod
     tty: true
     ports:
-      - 3000:8080
+      - 8080:8080
+      - "2345:2345" #delve用のポート
     depends_on:
       - db
     volumes:
       - ./backend:/go/src
+    security_opt:
+      - apparmor:unconfined
+    cap_add:
+      - SYS_PTRACE
     
 
   db:
@@ -21,12 +26,12 @@ services:
     ports:
       - 3306:3306
     env_file:
-      - ./docker/mysql/.env_mysql
+      - ./.docker/mysql/.env_mysql
     volumes:
-      - ./docker/mysql/my.conf:/etc/my.cnf
-      - mysql_volume:/var/lib/mysql
+      - ./.docker/mysql/my.cnf:/etc/my.cnf
+      - gin_mysql_volume:/var/lib/mysql
 
 volumes:
-  mysql_volume:
-    name: mysql_volume
+  gin_mysql_volume:
+    name: gin_mysql_volume
     external: true
