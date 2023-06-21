@@ -2,26 +2,19 @@ FROM golang:1.20.0-alpine AS base
 
 RUN apk update && apk add git
 
-WORKDIR /go/src
-
-COPY ./backend .
-
-
 FROM base AS prod
 
-RUN go get github.com/gin-gonic/gin \
-    github.com/jinzhu/gorm \
-    github.com/jinzhu/gorm/dialects/mysql \
-    github.com/joho/godotenv
+ENV GO111MODULE on
 
-RUN go mod tidy
+WORKDIR /go/src
 
-RUN go get -u github.com/cosmtrek/air && \
-    go build -o /go/bin/air github.com/cosmtrek/air
-
-RUN go install github.com/go-delve/delve/cmd/dlv@latest && \
-    go build -o /go/bin/dlv github.com/go-delve/delve/cmd/dlv
-
-RUN go install -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
-
-CMD ["air", "-c", ".air.toml"]
+RUN go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest && \
+  go install github.com/ramya-rao-a/go-outline@latest && \
+  go install github.com/nsf/gocode@latest && \
+  go install github.com/acroca/go-symbols@latest && \
+  go install github.com/fatih/gomodifytags@latest && \
+  go install github.com/josharian/impl@latest && \
+  go install github.com/haya14busa/goplay/cmd/goplay@latest && \
+  go install github.com/go-delve/delve/cmd/dlv@latest && \
+  go install golang.org/x/lint/golint@latest && \
+  go install golang.org/x/tools/gopls@latest
