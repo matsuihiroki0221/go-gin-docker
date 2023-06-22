@@ -3,25 +3,6 @@
 	"dockerComposeFile": [
 		"./../../docker-compose.yml"
 	],
-	"service": "web",
-	"workspaceFolder": "/go/src",
-  "customizations": {
-      // Configure properties specific to VS Code.
-      "vscode": {
-        // Set *default* container specific settings.json values on container create.
-        "settings": {
-          "go.toolsManagement.checkForUpdates": "off",
-          "go.gopath": "/go",
-          "go.formatTool": "gofmt",
-          "go.useLanguageServer": true,
-          "editor.formatOnSave": false,
-          "[go]": {
-              "editor.formatOnSave": true
-          }
-      },
-        // Add the IDs of extensions you want installed when the container is created.
-        "extensions": ["golang.Go", "GitHub.copilot", "esbenp.prettier-vscode"]
-      }
-    }
+	"service": "goapp",
+	"workspaceFolder": "/go/src"
 }
-

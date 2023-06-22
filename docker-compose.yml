@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./.docker/goapp/Dockerfile
-      target: prod
+      target: develop
     tty: true
     ports:
       - 8080:8080
