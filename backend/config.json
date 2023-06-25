@@ -1,0 +1,10 @@
+{
+    "db": {
+        "dsn":"%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+        "userName": "test_user",
+        "password": "password",
+        "hostName": "db",
+        "dbName": "test_database",
+        "port": 3306
+    }
+}

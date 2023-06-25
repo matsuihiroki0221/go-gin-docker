@@ -1,8 +1,8 @@
 {
 	"name": "Go-Practice",
 	"dockerComposeFile": [
-		"./../../docker-compose.yml"
+		"./../../compose.yaml"
 	],
-	"service": "goapp",
+	"service": "go-backend",
 	"workspaceFolder": "/go/src"
 }

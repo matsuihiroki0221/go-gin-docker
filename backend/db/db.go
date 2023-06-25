@@ -1,16 +1,35 @@
 package db
 
 import (
+	"fmt"
+
+	"github.com/matsuihiroki0221/gin-docker/settings"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 var (
-	db  *gorm.db
+	db  *gorm.DB
 	err error
 )
 
 func Init() {
-	dsn := "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	//dsn := "test_user:password@tcp(db:3306)/test_database?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := fmt.Sprintf(settings.Cfg.DB.Dsn,
+		settings.Cfg.DB.UserName,
+		settings.Cfg.DB.Password,
+		settings.Cfg.DB.HostName,
+		settings.Cfg.DB.Port,
+		settings.Cfg.DB.DBName,
+	)
+
+	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+func GetDB() *gorm.DB {
+	return db
 }
