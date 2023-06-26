@@ -13,8 +13,7 @@ var (
 	err error
 )
 
-func Init() {
-	//dsn := "test_user:password@tcp(db:3306)/test_database?charset=utf8mb4&parseTime=True&loc=Local"
+func Init() error {
 	dsn := fmt.Sprintf(settings.Cfg.DB.Dsn,
 		settings.Cfg.DB.UserName,
 		settings.Cfg.DB.Password,
@@ -26,8 +25,9 @@ func Init() {
 	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		panic(err)
+		return err
 	}
+	return nil
 }
 
 func GetDB() *gorm.DB {

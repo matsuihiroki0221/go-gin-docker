@@ -16,8 +16,10 @@ var configByte []byte
 
 func main() {
 
-	settings.Init(configByte)
+	// configファイルを読み込み、設定の初期化
+	settings.Init()
 
+	// dbのインスタンス作成
 	db.Init()
 
 	r := gin.Default()

@@ -3,6 +3,7 @@ package settings
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 )
 
 type Config struct {
@@ -20,12 +21,18 @@ type DBConfig struct {
 
 var Cfg *Config
 
-func Init(configByte []byte) {
-	fmt.Println(string(configByte))
+func Init() error {
+	f, err := os.Open("config.json")
+	if err != nil {
+		return err
+	}
+	defer f.Close()
 
-	Cfg = &Config{}
-	err := json.Unmarshal(configByte, Cfg)
+	err = json.NewDecoder(f).Decode(&Cfg)
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	// 正常終了すれば、nilを返す
+	return nil
 }

@@ -13,10 +13,6 @@ services:
       - db
     volumes:
       - ./backend:/go/src
-    security_opt:
-      - apparmor:unconfined
-    cap_add:
-      - SYS_PTRACE
     
   db:
     image: mysql:8.0
