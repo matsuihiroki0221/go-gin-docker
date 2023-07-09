@@ -8,9 +8,9 @@ import (
 )
 
 func DefineRouter(r *gin.Engine) {
-	v1 := r.Group("/api")
+	api := r.Group("/api")
 	{
-		v1.GET("/", func(c *gin.Context) {
+		api.GET("/", func(c *gin.Context) {
 			c.JSON(200, gin.H{
 				"message": "SUCCESS!",
 			})

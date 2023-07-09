@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 
+	"github.com/matsuihiroki0221/gin-docker/model"
 	"github.com/matsuihiroki0221/gin-docker/settings"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -27,9 +28,21 @@ func Init() error {
 	if err != nil {
 		return err
 	}
+
+	if err = autoMigration(); err != nil {
+		return err
+	}
+
 	return nil
 }
 
 func GetDB() *gorm.DB {
 	return db
+}
+
+func autoMigration() error {
+	if err := db.AutoMigrate(&model.User{}); err != nil {
+		return err
+	}
+	return nil
 }
